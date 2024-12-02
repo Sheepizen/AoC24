@@ -28,10 +28,6 @@ def sortExecute(res, firstArr, secondArr):
     secondArr.sort()
     runDifFind(res,firstArr, secondArr)
     
-    
-def addElements(arr):
-    return functools.reduce(lambda a, b: a+b, arr)
-
 
 def findNumberTimes(num, list):
      return list.count(num)
