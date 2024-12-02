@@ -14,11 +14,17 @@ for line in lines:
     chars = []
 
 def isSafeP(x,y):
+    if x == False : return False
     absNum = abs(x-y)
     if(absNum>3):
         return False
     else:
+        return y
+
+def checkForSafety(list):
+    if(functools.reduce(isSafeP,list) == list[-1]):
         return True
+    else: return False
 
 
 def isDecreasingP(x,y):
@@ -43,19 +49,11 @@ def listDecreasingP(list):
           return True
       else: return False
 
-def checkListSafe(list):
-    if (len(list) == 1): 
-        return True
-    elif(isSafeP(list[0],list[1])):
-         return checkListSafe(list[1:])
-    else:
-        return False
-
 def checkList(list):
     if(listIncreasingP(list)):
-        return checkListSafe(list)
+        return checkForSafety(list)
     elif(listDecreasingP(list)): 
-        return checkListSafe(list)
+        return checkForSafety(list)
     return False
 
 def checkListWithoutEach(list):
