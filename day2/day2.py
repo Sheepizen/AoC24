@@ -22,32 +22,25 @@ def isSafeP(x,y):
         return y
 
 def checkForSafety(list):
-    if(functools.reduce(isSafeP,list) == list[-1]):
-        return True
-    else: return False
-
+    return all(isSafeP(x, y) for x,y in zip(list, list[1:]))
 
 def isDecreasingP(x,y):
-    if x == False: return False
+    if not x : return False
     if(x>y):
         return y
     else: return False
 
 def isIncreasingP(x,y):
-    if x == False : return False
     if(x<y):
         return y
     else: return False
 
 def listIncreasingP(list):
-      if(functools.reduce(isIncreasingP, list) == list[-1]):
-          return True
-      else: return False
+      return all(isIncreasingP(x, y) for x,y in zip(list, list[1:]))
+
 
 def listDecreasingP(list):
-      if(functools.reduce(isDecreasingP, list) == list[-1]):
-          return True
-      else: return False
+      return all(isDecreasingP(x, y) for x,y in zip(list, list[1:]))
 
 def checkList(list):
     if(listIncreasingP(list)):
@@ -65,16 +58,10 @@ def checkListWithoutEach(list):
     return False
 
 def firstStar(lists):
-    result = 0
-    for list in lists:
-        result += checkList(list)
-    return result 
+    return sum(checkList(list) for list in lists) 
 
 def secondStar(lists):
-    result = 0
-    for list in lists:
-        result += checkListWithoutEach(list)
-    return result
+    return sum(checkListWithoutEach(list) for list in lists)
 
 print(firstStar(inputData))
 print(secondStar(inputData))
