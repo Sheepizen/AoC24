@@ -37,6 +37,6 @@ def calculateData(numsArr):
     return sum
 
 ### FIRST STAR
-#print(calculateData(getNums(parseData("input.txt"))))
+print(calculateData(getNums(parseData("input.txt"))))
 ## SECOND STAR
 print(calculateData(getNums(remove_do_dont(parseData("input.txt")))))
