@@ -27,7 +27,6 @@ def getNums(txt):
     regexedArr = use_regex(txt)
     for match in regexedArr:
         numsArr.append(match.split("l")[-1].strip("(").strip(")").split(","))
-        print(  match.split("l")[-1].strip("(").strip(")").split(","))
     return numsArr
 
 def calculateData(numsArr):
