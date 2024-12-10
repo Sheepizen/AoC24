@@ -27,7 +27,6 @@ def getNums(txt):
     regexedArr = use_regex(txt)
     for match in regexedArr:
         numsArr.append(match.split("l")[-1].strip("(").strip(")").split(","))
-        print(  match.split("l")[-1].strip("(").strip(")").split(","))
     return numsArr
 
 def calculateData(numsArr):
@@ -37,6 +36,6 @@ def calculateData(numsArr):
     return sum
 
 ### FIRST STAR
-#print(calculateData(getNums(parseData("input.txt"))))
+print(calculateData(getNums(parseData("input.txt"))))
 ## SECOND STAR
 print(calculateData(getNums(remove_do_dont(parseData("input.txt")))))
