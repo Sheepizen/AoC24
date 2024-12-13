@@ -1,6 +1,6 @@
 import re
 import sys
-
+from functools import reduce
 def parseData(txt):
     cleanData = []
     f = open(txt, "r")
@@ -111,17 +111,47 @@ def checkMAS(string):
      reversedmas = re.findall("SAM",string) 
      return [mas,reversedmas]
 
-def checkDataMAS(lst):
+
+def findIndex(string, substring):
+    occurrences = re.finditer(substring, string) 
+    res = reduce(lambda x, y: x + [y.start()], occurrences, []) 
+    return res 
+
+def checkDataMAS(lst, start):
+    reversedIndexes = []
+    forwardIndexes = []
     for n in range(len(lst)):
         print(n)
-        # print("resCheckMas",checkMAS(lst[n])[1][0])
         matches = checkMAS(lst[n]) 
         print("matches",matches)
+        if(matches[0]):
+            for y in findIndex(lst[n], "MAS"):
+                if(start >0):
+                 forwardIndexes.append([y+ start, y])
+                else:
+                    forwardIndexes.append([y + start,y+n])
         if(matches[1]):
-            print(lst[n])
-            print("y",lst[n].index(matches[1][0]), "x", lst[n].index(matches[1][0])+n)
+            print("findIndex SAM",findIndex(lst[n],"SAM"))
+            for y in findIndex(lst[n], "SAM"):
+             print("y", y, n, start)
+             if(start > 0):
+                reversedIndexes.append([y +n + start, y ])
+             else:
+                reversedIndexes.append([y + start,y+n])
+            # print("y",lst[n].index("SAM") + n + start, "x", lst[n].index(matches[1][0])+n)
+            # reversedIndexes.append([lst[n].index("SAM") + n + start,lst[n].index(matches[1][0])+n])
+    print("reversedIndexes",reversedIndexes, "forwardIndexes", forwardIndexes)
+    return [reversedIndexes,forwardIndexes] 
 
-print(checkDataMAS(collectDiagonals(parseData("test.txt"))))
+def getAllIndexes():
+    # print("reversed",checkDataMAS(collectDiagonals(parseData("test.txt")))[0])
+    print(checkDataMAS(collectDiagonals3(parseData("test.txt")), 0))
+
+getAllIndexes()
+
+ 
+
+#This code is contributed by Jyothi pinjala
 # checkDataMAS(collectDiagonals(parseData("test.txt")))
 # checkDataMAS(collectDiagonals2(parseData("test.txt")))
 #find all instaces of MAS of first diagonal and second diagonal
