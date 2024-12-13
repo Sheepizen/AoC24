@@ -1,7 +1,6 @@
 import re
 import sys
 
-sys.setrecursionlimit(2000) 
 def parseData(txt):
     cleanData = []
     f = open(txt, "r")
@@ -46,7 +45,6 @@ def getDiagonals(lst,y):
 def collectDiagonals(lst):
     diagonalsArr=[]
     for i in range(len(lst)):
-        print("INDEX",i)
         diagonalsArr.append(getDiagonals(lst,i))
     return diagonalsArr
 
@@ -108,18 +106,26 @@ def getSum(lst):
     return mySum
 
 def checkMAS(string):
+     print("STRING IN MAS", string)
      mas =  re.findall("MAS", string)
      reversedmas = re.findall("SAM",string) 
-     return (len(mas) + len(reversedmas))
+     return [mas,reversedmas]
 
 def checkDataMAS(lst):
-    sum = 0
-    for row in lst:
-        checkMAS(row)        
+    for n in range(len(lst)):
+        print(n)
+        # print("resCheckMas",checkMAS(lst[n])[1][0])
+        matches = checkMAS(lst[n]) 
+        print("matches",matches)
+        if(matches[1]):
+            print(lst[n])
+            print("y",lst[n].index(matches[1][0]), "x", lst[n].index(matches[1][0])+n)
 
-checkDataMAS(collectDiagonals(parseData("test.txt")))
-checkDataMAS(collectDiagonals2(parseData("test.txt")))
+print(checkDataMAS(collectDiagonals(parseData("test.txt"))))
+# checkDataMAS(collectDiagonals(parseData("test.txt")))
+# checkDataMAS(collectDiagonals2(parseData("test.txt")))
 #find all instaces of MAS of first diagonal and second diagonal
 #find all indexes of matches
+#if not reversed find index M, if reversed find index S
 #if index of first diagonal match == index of second diagonal match + 2
 #score up
